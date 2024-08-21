@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+{% load materialize_filters %}
+{% block content %}
+<h2 class="header">Add a New Part</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="input-field">
+        {{ form.category|as_materialize }}
+    </div>
+    <div class="input-field">
+        {{ form.car_model|as_materialize }}
+    </div>
+    <div class="input-field">
+        {{ form.original_part_name|as_materialize }}
+        <label for="{{ form.original_part_name.id_for_label }}">Original Part Name</label>
+    </div>
+    <div class="input-field">
+        {{ form.original_part_number|as_materialize }}
+        <label for="{{ form.original_part_number.id_for_label }}">Original Part Number</label>
+    </div>
+    <div class="input-field">
+        {{ form.compatible_part_name|as_materialize }}
+        <label for="{{ form.compatible_part_name.id_for_label }}">Compatible Part Name</label>
+    </div>
+    <div class="input-field">
+        {{ form.compatible_part_number|as_materialize }}
+        <label for="{{ form.compatible_part_number.id_for_label }}">Compatible Part Number</label>
+    </div>
+    <div class="input-field">
+        {{ form.description|as_materialize }}
+        <label for="{{ form.description.id_for_label }}">Description</label>
+    </div>
+    <div class="input-field">
+        {{ form.additional_info|as_materialize }}
+        <label for="{{ form.additional_info.id_for_label }}">Additional Info</label>
+    </div>
+    <button type="submit" class="btn waves-effect waves-light">Save Part</button>
+</form>
+{% endblock %}

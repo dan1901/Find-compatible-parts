@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post" action="{% url 'signup' %}?next={{ request.GET.next }}">
+    {% csrf_token %}
+    <div class="input-field">
+        <input type="email" name="email" id="email" required>
+        <label for="email">Email</label>
+    </div>
+    <div class="input-field">
+        <input type="password" name="password1" id="password1" required>
+        <label for="password1">Password</label>
+    </div>
+    <div class="input-field">
+        <input type="password" name="password2" id="password2" required>
+        <label for="password2">Confirm Password</label>
+    </div>
+    <button type="submit" class="btn waves-effect waves-light">Sign Up</button>
+</form>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2 class="header">Car Parts List</h2>
+
+<form method="get" action="{% url 'part_list' %}">
+    <div class="row">
+        <div class="input-field col s4">
+            <input type="text" id="search" name="q" placeholder="Search parts..." value="{{ request.GET.q }}">
+            <label for="search">Search Parts</label>
+        </div>
+
+        <div class="input-field col s4">
+            <select name="manufacturer">
+                <option value="" disabled selected>Choose Manufacturer</option>
+                <option value="">All Manufacturers</option>
+                {% for manufacturer in manufacturers %}
+                    <option value="{{ manufacturer.id }}" {% if request.GET.manufacturer == manufacturer.id|stringformat:"s" %}selected{% endif %}>
+                        {{ manufacturer.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <label>Manufacturer</label>
+        </div>
+
+        <div class="input-field col s4">
+            <select name="category">
+                <option value="" disabled selected>Choose Category</option>
+                <option value="">All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <label>Category</label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn waves-effect waves-light">Filter</button>
+</form>
+
+<table class="highlight">
+    <thead>
+        <tr>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Part Name</th>
+            <th>Part Number</th>
+            <th>Compatible Part Name</th>
+            <th>Compatible Part Number</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for part in parts %}
+        <tr>
+            <td>{{ part.car_model.manufacturer.name }}</td>
+            <td>{{ part.car_model.name }}</td>
+            <td>{{ part.original_part_name }}</td>
+            <td>{{ part.original_part_number }}</td>
+            <td>{{ part.compatible_part_name }}</td>
+            <td>{{ part.compatible_part_number }}</td>
+            <td>{{ part.category.name }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No parts found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p><a href="{% url 'part_create' %}" class="btn waves-effect waves-light">Add a new part</a></p>
+
+{% endblock %}
